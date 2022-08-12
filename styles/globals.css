@@ -24,7 +24,7 @@ a {
     color-scheme: dark;
   }
   body {
-    color: white;
-    background: black;
+    @apply text-white;
+    @apply bg-zinc-900;
   }
 }

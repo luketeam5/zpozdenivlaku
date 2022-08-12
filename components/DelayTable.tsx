@@ -5,6 +5,8 @@ type SortCategory = "companyName" | "totalTrains" | "avgDelay" | "under0" | "to5
 type SortType = "ascending" | "descending"
 
 export const DelayTable: FunctionComponent<{companyInfos: Array<CompanyInfo>}> = ({companyInfos}) => {
+	const [sortCategory, setSortCategory] = useState<SortCategory>("totalTrains")
+	const [sortType, setSortType] = useState<SortType>("descending")
 	return (
 		<div>
 			<table className="[&_:is(td,th)]:px-1">
@@ -13,13 +15,13 @@ export const DelayTable: FunctionComponent<{companyInfos: Array<CompanyInfo>}> =
 					<col span={6} className="text-center"/>
 				</colgroup>
 				<thead>
-					<tr className="bg-slate-300 dark:bg-slate-700">
+					<tr className="bg-zinc-300 dark:bg-zinc-700">
 						<th rowSpan={2}>Dopravce</th>
 						<th rowSpan={2}>Počet<br/>vlaků</th>
 						<th rowSpan={2}>Průměrné<br/>zpoždění</th>
 						<th colSpan={6}>Zpoždění v minutách</th>
 					</tr>
-					<tr className="bg-slate-200 dark:bg-slate-800">
+					<tr className="bg-zinc-200 dark:bg-zinc-800">
 						<th>{"<0"}</th>
 						<th>{"≤5"}</th>
 						<th>{">5"}</th>
@@ -28,7 +30,7 @@ export const DelayTable: FunctionComponent<{companyInfos: Array<CompanyInfo>}> =
 						<th>{">60"}</th>
 					</tr>
 				</thead>
-				<tbody className="[&>tr:nth-child(even)]:bg-slate-300 dark:[&>tr:nth-child(even)]:bg-slate-700">
+				<tbody className="[&>tr:nth-child(even)]:bg-zinc-300 dark:[&>tr:nth-child(even)]:bg-zinc-700">
 				{companyInfos.map(x => (
 					<tr key={x.company} className="[&>td:nth-child(n+4)]:text-center">
 						<td>{x.company}</td>
