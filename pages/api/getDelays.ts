@@ -37,7 +37,7 @@ function ParseDate(dateString: string): Date {
 function CalculateDelays(delayData: SZResponse): DelayInfo {
   const result: DelayInfo = {
     companies: [],
-    timeFetched: ParseDate(delayData.md).toISOString()
+    timeFetched: delayData.md /*ParseDate(delayData.md).toISOString()*/
   }
   const companyTrains: Record<string, {trains: Array<number>, timeInfo: TimeInfo}> = {}
 
