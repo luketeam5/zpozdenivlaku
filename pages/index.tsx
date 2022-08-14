@@ -5,7 +5,7 @@ import { DelayTable } from '../components/DelayTable'
 import { DelayInfo } from '../types/DelayInfo'
 
 const Home: NextPage = () => {
-  const {data, isValidating} = useSWR('/api/getDelays', (...args) => fetch(...args).then(res => res.json() as Promise<DelayInfo>), {refreshInterval: 10*60*1000})
+  const {data, isValidating} = useSWR('/api/getDelays', (...args) => fetch(...args).then(res => res.json() as Promise<DelayInfo>), {refreshInterval: 60*1000})
   return (
     <div className='flex flex-col items-center min-w-min'>
       <h1 className='text-center text-2xl font-bold'>Průměrné zpoždění vlaků železničních dopravců v ČR</h1>

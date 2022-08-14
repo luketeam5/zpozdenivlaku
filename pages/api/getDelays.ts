@@ -88,5 +88,5 @@ export default async function handler(
 ) {
   const szResponse = await GetSZData()
   const delayInfo = CalculateDelays(szResponse)
-  res.status(200).setHeader("Cache-Control", "max-age=0, s-maxage=600").json(delayInfo)
+  res.status(200).setHeader("Cache-Control", "max-age=0, s-maxage=60").json(delayInfo)
 }
