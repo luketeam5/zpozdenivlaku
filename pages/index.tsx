@@ -9,8 +9,7 @@ const Home: NextPage = () => {
   return (
     <div className='flex flex-col items-center min-w-min'>
       <h1 className='text-center text-2xl font-bold'>Průměrné zpoždění vlaků železničních dopravců v ČR</h1>
-      <span>{"Naposledy aktualizováno: " + (data?.timeFetched ? /*new Date(delayData.timeFetched)*/ data.timeFetched : "nikdy")}</span>
-      {!data || isValidating && (<span>Načítání...</span>)}
+      <span>{"Naposledy aktualizováno: " + (data?.timeFetched ? /*new Date(delayData.timeFetched)*/ data.timeFetched : "nikdy") + (!data || isValidating ? ", načítání..." : "")}</span>
       {data && <DelayTable companyInfos={data?.companies}/>}
     </div>
   )
