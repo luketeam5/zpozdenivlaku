@@ -11,15 +11,19 @@ export const DelayTable: FunctionComponent<{companyInfos: Array<CompanyInfo>}> =
 			<thead>
 				<tr className="bg-zinc-300 dark:bg-zinc-700">
 					<th rowSpan={2}>Dopravce</th>
-					<th rowSpan={2}>Počet<br/>vlaků</th>
+					<th colSpan={3} className="hidden md:table-cell">Počet vlaků</th>
+					<th rowSpan={2} className="md:hidden">Počet<br/>vlaků</th>
 					<th colSpan={3} className="hidden sm:table-cell">Průměrné zpoždění</th>
 					<th rowSpan={2} className="sm:hidden">Průměrné<br/>zpoždění</th>
 					<th colSpan={6}>Zpoždění v minutách</th>
 				</tr>
-				<tr className="bg-zinc-200 dark:bg-zinc-800 [&>th:nth-child(-n+3)]:hidden sm:[&>th:nth-child(-n+3)]:table-cell">
-					<th>Celkem</th>
-					<th>Regionální</th>
-					<th>Dálkové</th>
+				<tr className="bg-zinc-200 dark:bg-zinc-800">
+					<th className="hidden md:table-cell">Celkem</th>
+					<th className="hidden md:table-cell">Regionální</th>
+					<th className="hidden md:table-cell">Dálkové</th>
+					<th className="hidden sm:table-cell">Celkem</th>
+					<th className="hidden sm:table-cell">Regionální</th>
+					<th className="hidden sm:table-cell">Dálkové</th>
 					<th>{"<0"}</th>
 					<th>{"≤5"}</th>
 					<th>{">5"}</th>
@@ -30,12 +34,14 @@ export const DelayTable: FunctionComponent<{companyInfos: Array<CompanyInfo>}> =
 			</thead>
 			<tbody className="[&>tr:nth-child(even)]:bg-zinc-300 dark:[&>tr:nth-child(even)]:bg-zinc-700">
 			{companyInfos.map(x => (
-				<tr key={x.company} className="[&>td:nth-child(n+2)]:text-center [&>td:nth-child(n+4):nth-child(-n+5)]:hidden sm:[&>td:nth-child(n+4):nth-child(-n+5)]:table-cell">
+				<tr key={x.company} className="[&>td:nth-child(n+2)]:text-center">
 					<td>{x.company}</td>
-					<td>{x.delayInfo.total}</td>
+					<td>{x.trainCounts.total}</td>
+					<td className="hidden md:table-cell">{x.trainCounts.totalRegional}</td>
+					<td className="hidden md:table-cell">{x.trainCounts.totalLongDistance}</td>
 					<td>{x.avgDelay.avgDelay.toFixed(2)}</td>
-					<td>{x.avgDelay.avgRegionalDelay !== null ? x.avgDelay.avgRegionalDelay.toFixed(2) : "-"}</td>
-					<td>{x.avgDelay.avgLongDistanceDelay !== null ? x.avgDelay.avgLongDistanceDelay.toFixed(2) : "-"}</td>
+					<td className="hidden sm:table-cell">{x.avgDelay.avgRegionalDelay !== null ? x.avgDelay.avgRegionalDelay.toFixed(2) : "-"}</td>
+					<td className="hidden sm:table-cell">{x.avgDelay.avgLongDistanceDelay !== null ? x.avgDelay.avgLongDistanceDelay.toFixed(2) : "-"}</td>
 					<td>{x.delayInfo.under0}</td>
 					<td>{x.delayInfo.to5}</td>
 					<td>{x.delayInfo.over5}</td>
@@ -48,7 +54,7 @@ export const DelayTable: FunctionComponent<{companyInfos: Array<CompanyInfo>}> =
 			<tfoot>
 				<tr>
 					<th>Celkový počet vlaků</th>
-					<td>{companyInfos.map(x => x.delayInfo.total).reduce((a, b) => a + b, 0)}</td>
+					<td className="text-center">{companyInfos.map(x => x.trainCounts.total).reduce((a, b) => a + b, 0)}</td>
 				</tr>
 			</tfoot>
 		</table>

@@ -95,13 +95,17 @@ function CalculateDelays(delayData: SZResponse): DelayInfo {
         avgLongDistanceDelay: totalLongDistanceDelay / totalLongDistanceTrains
       },
       delayInfo: {
-        total: companyTrains[companyName].trains.length,
         ...companyTrains[companyName].timeInfo
+      },
+      trainCounts: {
+        total: companyTrains[companyName].trains.length,
+        totalRegional: totalRegionalTrains,
+        totalLongDistance: totalLongDistanceTrains
       }
     }
     result.companies.push(companyInfo)
   })
-  result.companies.sort((a, b) => b.delayInfo.total - a.delayInfo.total)
+  result.companies.sort((a, b) => b.trainCounts.total - a.trainCounts.total)
   return result
 }
 

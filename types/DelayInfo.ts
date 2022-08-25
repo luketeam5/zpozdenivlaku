@@ -6,7 +6,8 @@ export type DelayInfo = {
 export type CompanyInfo = {
 	company: string,
 	avgDelay: AvgDelayInfo,
-	delayInfo: TimeInfo & {total: number}
+	trainCounts: CountInfo,
+	delayInfo: TimeInfo
 }
 
 export type AvgDelayInfo = {
@@ -27,4 +28,10 @@ export type TimeInfo = {
 export type TrainInfo = {
 	type: string,
 	delay: number
+}
+
+export type CountInfo = {
+	total: number,
+	totalRegional: number,
+	totalLongDistance: number
 }
