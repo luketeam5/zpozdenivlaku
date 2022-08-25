@@ -2,8 +2,10 @@
 import { Agent } from 'https';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import fetch from 'node-fetch';
-import { CompanyInfo, DelayInfo, TimeInfo } from '../../types/DelayInfo'
+import { CompanyInfo, DelayInfo, TimeInfo, TrainInfo } from '../../types/DelayInfo'
 import { SZResponse } from '../../types/SZResponse'
+
+const regionalTrainTypes = ["Os", "Sp", "LET", "TL"]
 
 async function GetSZData(): Promise<SZResponse> {
   const res = await fetch("https://mapy.spravazeleznic.cz/serverside/request2.php?module=Layers\\OsVlaky&action=load", {
@@ -39,14 +41,16 @@ function CalculateDelays(delayData: SZResponse): DelayInfo {
     companies: [],
     timeFetched: delayData.md /*ParseDate(delayData.md).toISOString()*/
   }
-  const companyTrains: Record<string, {trains: Array<number>, timeInfo: TimeInfo}> = {}
+  const companyTrains: Record<string, {trains: Array<TrainInfo>, timeInfo: TimeInfo}> = {}
 
   delayData.result.forEach(train => {
     if (!companyTrains[train.properties.d]) {
       companyTrains[train.properties.d] = {trains: [], timeInfo: {under0: 0, to5: 0, over5: 0, over15: 0, over30: 0, over60: 0}}
     }
     const companyTrainData = companyTrains[train.properties.d]
-    companyTrainData.trains.push(train.properties.de)
+    companyTrainData.trains.push({
+      type: train.properties.tt, delay: train.properties.de
+    })
     if (train.properties.de < 0) {
       companyTrainData.timeInfo.under0++;
     }
@@ -68,9 +72,28 @@ function CalculateDelays(delayData: SZResponse): DelayInfo {
   })
 
   Object.keys(companyTrains).forEach(companyName => {
+    let totalDelay = 0
+    let totalRegionalDelay = 0
+    let totalRegionalTrains = 0
+    let totalLongDistanceDelay = 0
+    let totalLongDistanceTrains = 0 
+    companyTrains[companyName].trains.forEach(train => {
+      if (regionalTrainTypes.includes(train.type)) {
+        totalRegionalDelay += train.delay
+        totalRegionalTrains++
+      } else {
+        totalLongDistanceDelay += train.delay
+        totalLongDistanceTrains++
+      }
+      totalDelay += train.delay
+    })
     const companyInfo: CompanyInfo = {
       company: companyName,
-      avgDelay: companyTrains[companyName].trains.reduce((a, b) => a+b, 0) / companyTrains[companyName].trains.length,
+      avgDelay: {
+        avgDelay: totalDelay / companyTrains[companyName].trains.length,
+        avgRegionalDelay: totalRegionalDelay / totalRegionalTrains,
+        avgLongDistanceDelay: totalLongDistanceDelay / totalLongDistanceTrains
+      },
       delayInfo: {
         total: companyTrains[companyName].trains.length,
         ...companyTrains[companyName].timeInfo
