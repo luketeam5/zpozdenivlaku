@@ -51,24 +51,20 @@ function CalculateDelays(delayData: SZResponse): DelayInfo {
     companyTrainData.trains.push({
       type: train.properties.tt, delay: train.properties.de
     })
-    if (train.properties.de < 0) {
-      companyTrainData.timeInfo.under0++;
-    }
-    if (train.properties.de <= 5) {
-      companyTrainData.timeInfo.to5++;
-    }
-    if (train.properties.de > 5) {
-      companyTrainData.timeInfo.over5++;
-    }
-    if (train.properties.de > 15) {
-      companyTrainData.timeInfo.over15++;
-    }
-    if (train.properties.de > 30) {
-      companyTrainData.timeInfo.over30++;
-    }
     if (train.properties.de > 60) {
       companyTrainData.timeInfo.over60++;
+    } else if (train.properties.de > 30) {
+      companyTrainData.timeInfo.over30++;
+    } else if (train.properties.de > 15) {
+      companyTrainData.timeInfo.over15++;
+    } else if (train.properties.de > 5) {
+      companyTrainData.timeInfo.over5++;
+    } else if (train.properties.de >= 0) {
+      companyTrainData.timeInfo.to5++;
+    } else {
+      companyTrainData.timeInfo.under0++;
     }
+    
   })
 
   Object.keys(companyTrains).forEach(companyName => {
