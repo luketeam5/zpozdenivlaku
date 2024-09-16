@@ -6,12 +6,12 @@ import { MimoradnostInfo } from "../types/Mimoradnosti";
 
 const Home: NextPage = () => {
   const { data, isValidating } = useSWR(
-    "/api/getDelays",
+    "/apiv/getDelays",
     (...args) => fetch(...args).then((res) => res.json() as Promise<DelayInfo>),
     { refreshInterval: 60 * 1000 }
   );
   const { data: MimoradnostInfo } = useSWR(
-    "/api/ziskatMimoradnosti",
+    "/apiv/ziskatMimoradnosti",
     (...args) =>
       fetch(...args).then((res) => res.json() as Promise<MimoradnostInfo>),
     { refreshInterval: 60 * 1000 }
