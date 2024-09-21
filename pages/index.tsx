@@ -23,10 +23,10 @@ const Home: NextPage = () => {
           Průměrné zpoždění vlaků železničních dopravců v ČR
         </h1>
         <span className="text-sm text-gray-600">
-          {"Další aktualizace: " +
-            (data ? new Date(data.timeFetched).toLocaleTimeString() : "") +
-            (!data || isValidating ? ", načítání..." : "")}
-        </span>
+        {"Naposledy aktualizováno: " +
+          (data?.timeFetched ? data.timeFetched : "nikdy") +
+          (!data || isValidating ? ", načítání..." : "")}
+      </span>
 
         {MimoradnostInfo && (
           <div className="bg-yellow-200 text-yellow-800 p-4 rounded-lg mb-4">
