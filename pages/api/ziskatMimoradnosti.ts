@@ -30,7 +30,7 @@ export default async function handler(
   const data = await ZiskatMimoradnostiOmezeniVyluky();
 
   const pocetMimoradnosti = data.result.features.filter(
-    (mimoradnost) => mimoradnost.properties.MU_DRUH_UDALOSTI !== 0
+    (mimoradnost) => mimoradnost.properties?.MU_DRUH_UDALOSTI !== 0
   ).length;
 
   res.status(200).json({ pocetMimoradnosti });
