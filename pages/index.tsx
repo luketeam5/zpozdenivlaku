@@ -28,7 +28,7 @@ const Home: NextPage = () => {
           (!data || isValidating ? ", načítání..." : "")}
       </span>
 
-        {MimoradnostInfo && (
+        {MimoradnostInfo && MimoradnostInfo.pocetMimoradnosti > 0 && (
           <div className="bg-yellow-200 text-yellow-800 p-4 rounded-lg mb-4">
             <p className="font-bold">⚠️ Pozor, mimořádnosti na trati!</p>
             <p>Počet mimořádností: {MimoradnostInfo.pocetMimoradnosti}</p>
