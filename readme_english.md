@@ -1,4 +1,4 @@
-[[Česky]](README.md) [[English]](README_english.md)
+[[Česky]](README.md) [[English]](readme_english.md)
 
 # ⚠️ Warning ⚠️
 This website is **not** affiliated the Správa Železnic. It is merely a project to display information about train delays.

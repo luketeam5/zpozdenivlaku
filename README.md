@@ -1,4 +1,4 @@
-[[Česky]](README.md) [[English]](README_english.md)
+[[Česky]](README.md) [[English]](readme_english.md)
 
 # ⚠️ Upozornění ⚠️
 Tyto webové stránky **nejsou spojeny** se Správou železnic. Jedná se pouze o projekt, který zobrazuje informace o zpoždění vlaků.

@@ -32,6 +32,6 @@ export interface MimoradnostiResponse {
     }
 } 
 
-export interface MimoradnostInfo {
-    pocetMimoradnosti: number
+export interface IncidentInfo {
+    incidentCount: number
 }

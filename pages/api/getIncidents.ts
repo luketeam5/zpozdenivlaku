@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import fetch from "node-fetch";
 import { MimoradnostiResponse } from "../../types/Mimoradnosti";
 
-async function ZiskatMimoradnostiOmezeniVyluky(): Promise<MimoradnostiResponse> {
+async function GetIncidentsData(): Promise<MimoradnostiResponse> {
   const res = await fetch(
     "https://mapy.spravazeleznic.cz/serverside/request2.php?module=Layers\\MimoradneUdalosti&action=load",
     {
@@ -27,11 +27,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const data = await ZiskatMimoradnostiOmezeniVyluky();
+  const data = await GetIncidentsData();
 
-  const pocetMimoradnosti = data.result.features.filter(
-    (mimoradnost) => mimoradnost.properties?.MU_DRUH_UDALOSTI !== 0
+  const incidentCount = data.result.features.filter(
+    (incident) => incident.properties?.MU_DRUH_UDALOSTI !== 0
   ).length;
 
-  res.status(200).json({ pocetMimoradnosti });
+  res.status(200).json({ incidentCount });
 }

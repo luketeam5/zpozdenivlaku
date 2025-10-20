@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import useSWR from "swr";
 import { DelayTable } from "../components/DelayTable";
 import { DelayInfo } from "../types/DelayInfo";
-import { MimoradnostInfo } from "../types/Mimoradnosti";
+import { IncidentInfo } from "../types/Mimoradnosti";
 
 const Home: NextPage = () => {
   const { data, isValidating } = useSWR(
@@ -10,10 +10,10 @@ const Home: NextPage = () => {
     (...args) => fetch(...args).then((res) => res.json() as Promise<DelayInfo>),
     { refreshInterval: 60 * 1000 }
   );
-  const { data: MimoradnostInfo } = useSWR(
-    "/api/ziskatMimoradnosti",
+  const { data: incidentInfo } = useSWR(
+    "/api/getIncidents",
     (...args) =>
-      fetch(...args).then((res) => res.json() as Promise<MimoradnostInfo>),
+      fetch(...args).then((res) => res.json() as Promise<IncidentInfo>),
     { refreshInterval: 60 * 1000 }
   );
   return (
@@ -28,10 +28,10 @@ const Home: NextPage = () => {
           (!data || isValidating ? ", načítání..." : "")}
       </span>
 
-        {MimoradnostInfo && MimoradnostInfo.pocetMimoradnosti > 0 && (
+        {incidentInfo && incidentInfo.incidentCount > 0 && (
           <div className="bg-yellow-200 text-yellow-800 p-4 rounded-lg mb-4">
             <p className="font-bold">⚠️ Pozor, mimořádnosti na trati!</p>
-            <p>Počet mimořádností: {MimoradnostInfo.pocetMimoradnosti}</p>
+            <p>Počet mimořádností: {incidentInfo.incidentCount}</p>
             <a
               href="https://mapy.spravazeleznic.cz/"
               target="_blank"
