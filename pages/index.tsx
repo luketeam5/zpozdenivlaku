@@ -55,7 +55,7 @@ const Home: NextPage = () => {
             rel="noreferrer"
             className="underline"
           >
-            web Správy železnic
+            web Správy železnic 
           </a>
           nebo sledujte informace dopravce.
         </p>
