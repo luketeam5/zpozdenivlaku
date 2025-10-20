@@ -1,4 +1,5 @@
 export interface Mimoradnost {
+    properties: any
     MU_ID: number,
     MU_ID_JEJICH: number,
     MU_DOPAD_CESTUJICI: number,
