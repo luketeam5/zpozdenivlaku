@@ -14,4 +14,23 @@ A lot of people complain about ČD delays, often not knowing that ČD is on aver
 
 ---
 
+# Development
+This is a [Next.js](https://nextjs.org/) project created using [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Running
+To run this project locally run one of the following commands:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm run dev
+```
+
+After that you can open [http://localhost:3000](http://localhost:3000) in your browser.
+In supported browsers you can see your edits right after saving the file - no need to restart the development server or refresh the website.
+
+---
+
 [Original project](https://github.com/Peperman66/czechtraindelay) by [Peperman66](https://github.com/Peperman66), this is an updated version.
